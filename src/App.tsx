@@ -1,34 +1,23 @@
 import { useEffect, useState } from "react";
-import { fetchFilms } from "./features/film/filmAPI";
-import { Table, SearchInput, YearPicker, TypePicker } from "./components";
-import { IQueryParams } from "./utilities";
-import "./App.scss";
-import { useAppSelector, useAppDispatch } from "./app/hooks";
 
+import { Table, SearchInput, YearPicker, TypePicker } from "./components";
+import { useAppSelector, useAppDispatch } from "./app/hooks";
 import { selectFilters, getFilmsWithParams } from "./features/film/filmSlice";
 
-function App() {
-  const [data, setData] = useState<any[]>([]);
+import "./App.scss";
 
+function App() {
   const filters = useAppSelector(selectFilters);
   const dispatch = useAppDispatch();
-
-  const [filterParams, setFilterParams] = useState<IQueryParams>({
-    apikey: process.env.REACT_APP_API_KEY,
-    t: "",
-    s: "Pokemon",
-    y: "",
-    type: "",
-    page: 1,
-  });
 
   useEffect(() => {
     const filmData = localStorage.getItem("data");
 
     if (filmData) {
-      setData(() => JSON.parse(filmData));
+      // setData(() => JSON.parse(filmData));
     } else {
-      dispatch(getFilmsWithParams(filters));
+      // dispatch(getFilmsWithParams(filters));
+      //
       // fetchFilms(filterParams).then((res) => {
       //   setData(res.Search);
       //   console.log(res.Search);
@@ -40,23 +29,11 @@ function App() {
   return (
     <div className="App">
       <div className="filters">
-        <SearchInput
-          filterParams={filterParams}
-          setFilterParams={setFilterParams}
-          setData={setData}
-        />
-        <YearPicker
-          filterParams={filterParams}
-          setFilterParams={setFilterParams}
-          setData={setData}
-        />
-        <TypePicker
-          filterParams={filterParams}
-          setFilterParams={setFilterParams}
-          setData={setData}
-        />
+        <SearchInput />
+        {/* <YearPicker />
+        <TypePicker /> */}
       </div>
-      <Table rows={data} />
+      <Table />
       {/* {data && data.length ? <Table rows={data} /> : <SkeletonComponent />} */}
     </div>
   );

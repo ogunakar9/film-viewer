@@ -4,17 +4,29 @@ import Button from "@mui/material/Button";
 import { IQueryParams } from "../../utilities";
 import "./styles.scss";
 import { fetchFilms } from "../../features/film/filmAPI";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import {
+  selectFilters,
+  getFilmsWithParams,
+  updateSearchInput,
+} from "../../features/film/filmSlice";
 
-const SearchInput = (props: ISearchInputProps) => {
-  const { filterParams, setFilterParams, setData } = props;
+const SearchInput = () => {
+  const filters = useAppSelector(selectFilters);
+  console.log(filters);
+  const dispatch = useAppDispatch();
 
   const handleTextChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFilterParams((prev: IQueryParams) => {
-      return { ...prev, s: e.target.value };
-    });
+    dispatch(updateSearchInput(e.target.value));
   };
+
+  const handleSearchClick = () => {
+    dispatch(getFilmsWithParams(filters));
+  };
+
+  //TODO: add enter keypress handler
 
   return (
     <Box
@@ -29,28 +41,12 @@ const SearchInput = (props: ISearchInputProps) => {
         id="outlined-basic"
         placeholder="Search Films"
         variant="outlined"
-        value={filterParams.s}
+        value={filters.s}
         onChange={handleTextChange}
       />
-      <Button
-        onClick={() => {
-          fetchFilms(filterParams).then((res) => {
-            setData(res.Search);
-            console.log(res.Search);
-            localStorage.setItem("data", JSON.stringify(res.Search));
-          });
-        }}
-      >
-        Search By Title
-      </Button>
+      <Button onClick={handleSearchClick}>Search By Title</Button>
     </Box>
   );
 };
 
 export default SearchInput;
-
-interface ISearchInputProps {
-  setFilterParams: React.Dispatch<React.SetStateAction<IQueryParams>>;
-  filterParams: IQueryParams;
-  setData: React.Dispatch<React.SetStateAction<any[]>>;
-}

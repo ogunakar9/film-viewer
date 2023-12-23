@@ -37,8 +37,8 @@ export const filmSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      // state.value += action.payload;
+    updateSearchInput: (state, action: PayloadAction<string>) => {
+      state.query.s = action.payload;
     },
     //TODO: filter query params
   },
@@ -60,7 +60,7 @@ export const filmSlice = createSlice({
   },
 });
 
-export const { incrementByAmount } = filmSlice.actions;
+export const { updateSearchInput } = filmSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

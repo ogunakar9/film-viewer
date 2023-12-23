@@ -5,7 +5,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IFilmData } from "../../utilities/types";
 import Skeleton from "../skeleton";
 import "./styles.scss";
 
@@ -13,7 +12,7 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks";
 
 import { selectFilmData, selectFilters } from "../../features/film/filmSlice";
 
-const TableComponent = ({ rows }: { rows: IFilmData[] }) => {
+const TableComponent = () => {
   // const TableSection = useMemo(() => {
   //   return rows.length ? (
   //     rows?.map((row) => (
