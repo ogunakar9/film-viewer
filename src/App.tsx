@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { Counter } from "./features/counter/Counter";
-import { Table, SearchInput } from "./components";
+import { Table, SearchInput, YearPicker } from "./components";
 import "./App.scss";
 import { BASE_URL } from "./utilities/constants";
 
@@ -37,7 +37,10 @@ function App() {
 
   return (
     <div className="App">
-      <SearchInput />
+      <div className="filters">
+        <SearchInput />
+        <YearPicker />
+      </div>
       <Table rows={data} />
     </div>
   );

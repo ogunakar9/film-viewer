@@ -23,6 +23,7 @@ const SearchInput = () => {
     >
       <TextField
         id="outlined-basic"
+        placeholder="Search Films"
         variant="outlined"
         value={searchTerm}
         onChange={handleTextChange}

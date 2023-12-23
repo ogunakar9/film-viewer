@@ -1,2 +1,3 @@
-export { default as Table } from "./table/Table";
-export { default as SearchInput } from "./search/SearchInput";
+export { default as Table } from "./table";
+export { default as SearchInput } from "./search";
+export { default as YearPicker } from "./yearSelect";
