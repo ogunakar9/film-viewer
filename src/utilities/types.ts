@@ -30,3 +30,10 @@ export interface IFilmData {
   Website: string;
   Response: string;
 }
+
+export interface IQueryParams {
+  apikey: string | undefined;
+  s?: string;
+  t?: string;
+  type?: string;
+}

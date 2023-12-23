@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import { fetchFilms } from "./features/film/filmAPI";
 import {
   Table,
   SearchInput,
@@ -7,34 +7,18 @@ import {
   SkeletonComponent,
   TypePicker,
 } from "./components";
+import { IQueryParams } from "./utilities";
 import "./App.scss";
-import { BASE_URL } from "./utilities/constants";
 
 function App() {
   const [data, setData] = useState<any[]>([]);
 
-  const fetchFilms = async () => {
-    const params = {
-      // t: "Pokemon",
-      s: "Spider",
-      apikey: process.env.REACT_APP_API_KEY,
-    };
-    try {
-      const response = await axios.get(BASE_URL, { params });
-      const responseData = response.data;
-      if (responseData?.Search) {
-        setData(responseData.Search);
-        localStorage.setItem("data", JSON.stringify(responseData.Search));
-      } else {
-        setData([responseData]);
-        localStorage.setItem("data", JSON.stringify([responseData.Search]));
-      }
-
-      console.log(response);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
+  const [filterParams, setFilterParams] = useState<IQueryParams>({
+    apikey: process.env.REACT_APP_API_KEY,
+    t: "",
+    s: "Pokemon",
+    type: "",
+  });
 
   useEffect(() => {
     const filmData = localStorage.getItem("data");
@@ -42,14 +26,22 @@ function App() {
     if (filmData) {
       setData(() => JSON.parse(filmData));
     } else {
-      fetchFilms();
+      fetchFilms(filterParams).then((res) => {
+        setData(res.Search);
+        console.log(res.Search);
+        localStorage.setItem("data", JSON.stringify(res.Search));
+      });
     }
   }, []);
 
   return (
     <div className="App">
       <div className="filters">
-        <SearchInput />
+        <SearchInput
+          filterParams={filterParams}
+          setFilterParams={setFilterParams}
+          setData={setData}
+        />
         <YearPicker />
         <TypePicker />
       </div>
@@ -60,3 +52,11 @@ function App() {
 }
 
 export default App;
+
+// if (responseData?.Search) {
+//   setData(responseData.Search);
+//   localStorage.setItem("data", JSON.stringify(responseData.Search));
+// } else {
+//   setData([responseData]);
+//   localStorage.setItem("data", JSON.stringify([responseData.Search]));
+// }
