@@ -77,9 +77,17 @@ export const {
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectFilters = (state: RootState) => state.films.query;
+export const selectSearchTitle = (state: RootState) => state.films.query.s;
+export const selectYear = (state: RootState) => state.films.query.y;
+export const selectPage = (state: RootState) => state.films.query.page;
+export const selectType = (state: RootState) => state.films.query.type;
 export const selectStatus = (state: RootState) => state.films.status;
 export const selectFilmData = (state: RootState) => state.films.filmData;
 export const selectErrors = (state: RootState) => state.films.error;
+export const selectFilmsLength = (state: RootState) =>
+  state.films.filmData.totalResults;
+export const selectFilmsList = (state: RootState) =>
+  state.films.filmData.Search;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

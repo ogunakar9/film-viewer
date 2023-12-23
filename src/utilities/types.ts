@@ -46,11 +46,11 @@ export interface IFilmData {
 
 export interface IQueryParams {
   apikey: string | undefined;
+  page: number;
   s?: string;
   // t?: string;
   y?: string;
   type?: string;
-  page?: number;
 }
 
 export interface IFilmState {

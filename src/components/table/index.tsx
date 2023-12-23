@@ -7,12 +7,27 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Skeleton from "../skeleton";
 import "./styles.scss";
+import { ROWS_PER_PAGE } from "../../utilities";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 
-import { selectFilmData, selectFilters } from "../../features/film/filmSlice";
+import {
+  selectFilmData,
+  selectFilters,
+  selectFilmsLength,
+  selectFilmsList,
+} from "../../features/film/filmSlice";
 
 const TableComponent = () => {
+  const filters = useAppSelector(selectFilters);
+  const filmList = useAppSelector(selectFilmsList);
+  const { page } = filters;
+  const dispatch = useAppDispatch();
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 1 ? Math.max(0, (1 + page) * ROWS_PER_PAGE - filmList.length) : 0;
+
   // const TableSection = useMemo(() => {
   //   return rows.length ? (
   //     rows?.map((row) => (
@@ -33,8 +48,6 @@ const TableComponent = () => {
   //   );
   // }, [rows]);
 
-  const filmData = useAppSelector(selectFilmData);
-
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -46,7 +59,7 @@ const TableComponent = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {filmData.Search?.map((row) => (
+          {filmList?.map((row) => (
             <TableRow
               key={row.imdbID}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -68,6 +81,11 @@ const TableComponent = () => {
               <TableCell>{row.Year}</TableCell>
             </TableRow>
           ))}
+          {emptyRows > 0 && (
+            <TableRow style={{ height: 53 * emptyRows }}>
+              <TableCell colSpan={6} />
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

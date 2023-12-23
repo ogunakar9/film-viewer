@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { Table, SearchInput, YearPicker, TypePicker } from "../../components";
 import { selectFilters, getFilmsWithParams } from "./filmSlice";
 import "./styles.scss";
+import TableSample from "../../components/table/TableSample";
 
 const Films = () => {
   const filters = useAppSelector(selectFilters);
@@ -22,6 +23,7 @@ const Films = () => {
         <Button onClick={handleFormSubmit}>Apply Filters</Button>
       </div>
       <Table />
+      <TableSample />
     </div>
   );
 };
