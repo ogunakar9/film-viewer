@@ -55,7 +55,7 @@ const TableComponent = () => {
   // }, [rows]);
 
   const handlePageIncrease = () => {
-    dispatch(updatePage(page + 1));
+    dispatch(updatePage(filters.page + 1));
     dispatch(getFilmsWithParams(filters));
   };
 
@@ -100,15 +100,15 @@ const TableComponent = () => {
               <TableCell>{row.Year}</TableCell>
             </TableRow>
           ))}
-          {emptyRows > 0 && (
+          {/* {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={6} />
             </TableRow>
-          )}
+          )} */}
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TablePagination
+            {/* <TablePagination
               colSpan={3}
               count={Math.ceil((filmList?.length || 1) / ROWS_PER_PAGE)}
               rowsPerPage={-1}
@@ -122,9 +122,9 @@ const TableComponent = () => {
               onPageChange={handleChangePage}
               // onRowsPerPageChange={handleChangeRowsPerPage}
               // ActionsComponent={TablePaginationActions}
-            />
+            /> */}
 
-            {/* <td>
+            <td>
               <IconButton onClick={handlePageDecrease}>
                 <KeyboardArrowLeft />
               </IconButton>
@@ -133,7 +133,7 @@ const TableComponent = () => {
               <IconButton onClick={handlePageIncrease}>
                 <KeyboardArrowRight />
               </IconButton>
-            </td> */}
+            </td>
           </TableRow>
         </TableFooter>
       </Table>
