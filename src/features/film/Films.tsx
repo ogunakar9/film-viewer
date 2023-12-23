@@ -23,7 +23,7 @@ const Films = () => {
         <Button onClick={handleFormSubmit}>Apply Filters</Button>
       </div>
       <Table />
-      <TableSample />
+      {/* <TableSample /> */}
     </div>
   );
 };

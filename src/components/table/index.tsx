@@ -1,3 +1,4 @@
+import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -5,17 +6,22 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import TableFooter from "@mui/material/TableFooter";
+import TablePagination from "@mui/material/TablePagination";
 import Skeleton from "../skeleton";
 import "./styles.scss";
 import { ROWS_PER_PAGE } from "../../utilities";
-
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
 import {
   selectFilmData,
   selectFilters,
   selectFilmsLength,
   selectFilmsList,
+  updatePage,
+  getFilmsWithParams,
 } from "../../features/film/filmSlice";
 
 const TableComponent = () => {
@@ -26,7 +32,7 @@ const TableComponent = () => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 1 ? Math.max(0, (1 + page) * ROWS_PER_PAGE - filmList.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * ROWS_PER_PAGE - filmList?.length) : 1;
 
   // const TableSection = useMemo(() => {
   //   return rows.length ? (
@@ -47,6 +53,19 @@ const TableComponent = () => {
   //     <Skeleton />
   //   );
   // }, [rows]);
+
+  const handlePageIncrease = () => {
+    dispatch(updatePage(page + 1));
+    dispatch(getFilmsWithParams(filters));
+  };
+
+  const handlePageDecrease = () => {
+    dispatch(updatePage(page - 1));
+  };
+
+  const handleChangePage = () => {
+    dispatch(updatePage(page - 1));
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -87,6 +106,36 @@ const TableComponent = () => {
             </TableRow>
           )}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TablePagination
+              colSpan={3}
+              count={Math.ceil((filmList?.length || 1) / ROWS_PER_PAGE)}
+              rowsPerPage={-1}
+              page={page}
+              // SelectProps={{
+              //   inputProps: {
+              //     "aria-label": "rows per page",
+              //   },
+              //   native: true,
+              // }}
+              onPageChange={handleChangePage}
+              // onRowsPerPageChange={handleChangeRowsPerPage}
+              // ActionsComponent={TablePaginationActions}
+            />
+
+            {/* <td>
+              <IconButton onClick={handlePageDecrease}>
+                <KeyboardArrowLeft />
+              </IconButton>
+            </td>
+            <td>
+              <IconButton onClick={handlePageIncrease}>
+                <KeyboardArrowRight />
+              </IconButton>
+            </td> */}
+          </TableRow>
+        </TableFooter>
       </Table>
     </TableContainer>
   );
