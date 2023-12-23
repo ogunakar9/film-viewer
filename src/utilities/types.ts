@@ -48,9 +48,12 @@ export interface IQueryParams {
   apikey: string | undefined;
   page: number;
   s?: string;
-  // t?: string;
   y?: string;
   type?: string;
+}
+export interface IDetailQueryParams {
+  apikey: string | undefined;
+  i: string;
 }
 
 export interface IFilmState {
@@ -58,4 +61,5 @@ export interface IFilmState {
   status: "idle" | "loading" | "failed";
   error: string | null;
   filmData: IFilmDataState;
+  selectedFilm: IFilmDetailData;
 }

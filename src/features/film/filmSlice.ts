@@ -1,12 +1,17 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
 import { fetchFilms } from "./filmAPI";
-import { IQueryParams, IFilmState, IFilmDataState } from "../../utilities";
+import {
+  IQueryParams,
+  IFilmState,
+  IFilmDataState,
+  IDetailQueryParams,
+  IFilmDetailData,
+} from "../../utilities";
 
 const initialState: IFilmState = {
   query: {
     apikey: process.env.REACT_APP_API_KEY,
-    // t: "",
     s: "Pokemon",
     y: "",
     type: "",
@@ -15,6 +20,7 @@ const initialState: IFilmState = {
   status: "idle",
   filmData: {} as IFilmDataState,
   error: null,
+  selectedFilm: {} as IFilmDetailData,
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -26,6 +32,16 @@ export const getFilmsWithParams = createAsyncThunk(
   "films/fetchFilms",
   async (params: IQueryParams) => {
     const response = await fetchFilms(params);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+
+export const getFilmDetail = createAsyncThunk(
+  "films/fetchFilmDetail",
+  async (params: IDetailQueryParams) => {
+    const apikey = process.env.REACT_APP_API_KEY;
+    const response = await fetchFilms({ ...params, apikey });
     // The value we return becomes the `fulfilled` action payload
     return response;
   }
@@ -62,6 +78,16 @@ export const filmSlice = createSlice({
       })
       .addCase(getFilmsWithParams.rejected, (state) => {
         state.status = "failed";
+      })
+      .addCase(getFilmDetail.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getFilmDetail.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.selectedFilm = action.payload;
+      })
+      .addCase(getFilmDetail.rejected, (state) => {
+        state.status = "failed";
       });
   },
 });
@@ -88,7 +114,10 @@ export const selectFilmsLength = (state: RootState) =>
   state.films.filmData.totalResults;
 export const selectFilmsList = (state: RootState) =>
   state.films.filmData.Search;
+export const selectSelectedFilm = (state: RootState) =>
+  state.films.selectedFilm;
 
+//TODO: refactor this to make page fetch with filter change in same function
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
 // export const incrementIfOdd =

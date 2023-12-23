@@ -19,6 +19,8 @@ import {
   selectFilmsList,
   updatePage,
   getFilmsWithParams,
+  getFilmDetail,
+  selectSelectedFilm,
 } from "../../features/film/filmSlice";
 import "./styles.scss";
 
@@ -29,12 +31,13 @@ const TableComponent = () => {
   const filters = useAppSelector(selectFilters);
   const filmList = useAppSelector(selectFilmsList);
   const totalFilmsLength = useAppSelector(selectFilmsLength);
+  const selectedFilm = useAppSelector(selectSelectedFilm);
   const { page } = filters;
   const dispatch = useAppDispatch();
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = ROWS_PER_PAGE - (filmList?.length || 0);
+  console.log("selectedFilm", selectedFilm);
 
+  //TODO: refactor getfilmswithparams to be called from redux for page update
   const handlePageIncrease = () => {
     setNextDisabled(true);
     dispatch(updatePage(filters.page + 1));
@@ -67,6 +70,7 @@ const TableComponent = () => {
   }, [page, totalFilmsLength]);
 
   const handleRowClick = (id: string) => {
+    dispatch(getFilmDetail({ apikey: process.env.REACT_APP_API_KEY, i: id }));
     //TODO: reroute to film details page
   };
 
