@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useMemo } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,8 +7,29 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { IFilmData } from "../../utilities/types";
+import Skeleton from "../skeleton";
 
-export default function BasicTable({ rows }: { rows: IFilmData[] }) {
+const TableComponent = ({ rows }: { rows: IFilmData[] }) => {
+  // const TableSection = useMemo(() => {
+  //   return rows.length ? (
+  //     rows?.map((row) => (
+  //       <TableRow
+  //         key={row.imdbID}
+  //         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+  //       >
+  //         <TableCell component="th" scope="row">
+  //           {row.Title}
+  //         </TableCell>
+  //         <TableCell align="right">{row.imdbID}</TableCell>
+  //         <TableCell align="right">{row.Year}</TableCell>
+  //         <TableCell align="right">{row.imdbRating}</TableCell>
+  //       </TableRow>
+  //     ))
+  //   ) : (
+  //     <Skeleton />
+  //   );
+  // }, [rows]);
+
   //TODO: add poster
   return (
     <TableContainer component={Paper}>
@@ -18,11 +39,10 @@ export default function BasicTable({ rows }: { rows: IFilmData[] }) {
             <TableCell>Name</TableCell>
             <TableCell align="right">IMDB ID</TableCell>
             <TableCell align="right">Year</TableCell>
-            <TableCell align="right">IMDB Rating</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows?.map((row) => (
             <TableRow
               key={row.imdbID}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -32,11 +52,12 @@ export default function BasicTable({ rows }: { rows: IFilmData[] }) {
               </TableCell>
               <TableCell align="right">{row.imdbID}</TableCell>
               <TableCell align="right">{row.Year}</TableCell>
-              <TableCell align="right">{row.imdbRating}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default TableComponent;
