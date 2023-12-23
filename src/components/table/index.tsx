@@ -66,7 +66,12 @@ const TableComponent = () => {
     }
   }, [page, totalFilmsLength]);
 
+  const handleRowClick = (id: string) => {
+    //TODO: reroute to film details page
+  };
+
   //TODO: fix table layout shift on page change width issue
+  //TODO: add enhanced toolbar here
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="film table">
@@ -80,8 +85,13 @@ const TableComponent = () => {
         <TableBody style={{ height: "800px" }}>
           {filmList?.map((row) => (
             <TableRow
+              hover
               key={row.imdbID}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              sx={{
+                "&:last-child td, &:last-child th": { border: 0 },
+                cursor: "pointer",
+              }}
+              onClick={() => handleRowClick(row.imdbID)}
             >
               <TableCell component="th" scope="row">
                 {row.imdbID}
