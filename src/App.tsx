@@ -27,7 +27,7 @@ function App() {
     const filmData = localStorage.getItem("data");
 
     if (filmData) {
-      setData(JSON.parse(filmData));
+      setData(() => [JSON.parse(filmData)]);
     } else {
       fetchFilms();
     }
@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="App">
       <SearchInput />
-      <Table />
+      <Table rows={data} />
     </div>
   );
 }

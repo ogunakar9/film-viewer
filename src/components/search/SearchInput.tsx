@@ -1,8 +1,17 @@
-import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import "./styles.scss";
 
-export default function BasicTextFields() {
+const SearchInput = () => {
+  const [searchTerm, setSearchTerm] = useState("Pokemon");
+
+  const handleTextChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setSearchTerm(e.target.value);
+  };
+
   return (
     <Box
       component="form"
@@ -12,7 +21,14 @@ export default function BasicTextFields() {
       noValidate
       autoComplete="off"
     >
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+      <TextField
+        id="outlined-basic"
+        variant="outlined"
+        value={searchTerm}
+        onChange={handleTextChange}
+      />
     </Box>
   );
-}
+};
+
+export default SearchInput;
