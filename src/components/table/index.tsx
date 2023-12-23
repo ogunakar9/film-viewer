@@ -30,7 +30,6 @@ const TableComponent = ({ rows }: { rows: IFilmData[] }) => {
   //   );
   // }, [rows]);
 
-  //TODO: add poster
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
