@@ -1,27 +1,21 @@
-import { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { IQueryParams } from "../../utilities";
-import { fetchFilms } from "../../features/film/filmAPI";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import {
+  selectFilters,
+  updateTypeSelector,
+} from "../../features/film/filmSlice";
 
-const SelectType = (props: ISearchInputProps) => {
-  const { filterParams, setFilterParams, setData } = props;
+const SelectType = () => {
+  const filters = useAppSelector(selectFilters);
+  const dispatch = useAppDispatch();
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setFilterParams((prev: IQueryParams) => {
-      return { ...prev, type: event.target.value };
-    });
+  const handleChange = (e: SelectChangeEvent) => {
+    dispatch(updateTypeSelector(e.target.value));
   };
-
-  // useEffect(() => {
-  //   fetchFilms(filterParams).then((res) => {
-  //     setData(res.Search);
-  //     localStorage.setItem("data", JSON.stringify(res.Search));
-  //   });
-  // }, [filterParams.type]);
 
   return (
     <div>
@@ -30,7 +24,7 @@ const SelectType = (props: ISearchInputProps) => {
         <Select
           labelId="type-select-helper-label"
           id="type-select-helper"
-          value={filterParams.type}
+          value={filters.type}
           label="Film, Series, Episode"
           onChange={handleChange}
         >
@@ -48,9 +42,3 @@ const SelectType = (props: ISearchInputProps) => {
 };
 
 export default SelectType;
-
-interface ISearchInputProps {
-  setFilterParams: React.Dispatch<React.SetStateAction<IQueryParams>>;
-  filterParams: IQueryParams;
-  setData: React.Dispatch<React.SetStateAction<any[]>>;
-}

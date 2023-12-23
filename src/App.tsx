@@ -36,7 +36,7 @@ function App() {
       <div className="filters">
         <SearchInput />
         <YearPicker />
-        {/* <TypePicker /> */}
+        <TypePicker />
         <Button onClick={handleSearchClick}>Apply Filters</Button>
       </div>
       <Table />

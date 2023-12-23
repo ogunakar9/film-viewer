@@ -59,7 +59,6 @@ export const filmSlice = createSlice({
       .addCase(getFilmsWithParams.fulfilled, (state, action) => {
         state.status = "idle";
         state.filmData = action.payload;
-        console.log("state", action.payload);
       })
       .addCase(getFilmsWithParams.rejected, (state) => {
         state.status = "failed";

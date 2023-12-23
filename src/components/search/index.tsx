@@ -9,7 +9,6 @@ import {
 
 const SearchInput = () => {
   const filters = useAppSelector(selectFilters);
-  console.log(filters);
   const dispatch = useAppDispatch();
 
   const handleTextChange = (
