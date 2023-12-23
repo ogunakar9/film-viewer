@@ -9,7 +9,7 @@ const Films = () => {
   const filters = useAppSelector(selectFilters);
   const dispatch = useAppDispatch();
 
-  const handleSearchClick = () => {
+  const handleFormSubmit = () => {
     dispatch(getFilmsWithParams(filters));
   };
 
@@ -19,7 +19,7 @@ const Films = () => {
         <SearchInput />
         <YearPicker />
         <TypePicker />
-        <Button onClick={handleSearchClick}>Apply Filters</Button>
+        <Button onClick={handleFormSubmit}>Apply Filters</Button>
       </div>
       <Table />
     </div>
