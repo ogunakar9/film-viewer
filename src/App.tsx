@@ -18,6 +18,7 @@ function App() {
     t: "",
     s: "Pokemon",
     type: "",
+    page: 1,
   });
 
   useEffect(() => {
@@ -42,8 +43,16 @@ function App() {
           setFilterParams={setFilterParams}
           setData={setData}
         />
-        <YearPicker />
-        <TypePicker />
+        <YearPicker
+        // filterParams={filterParams}
+        // setFilterParams={setFilterParams}
+        // setData={setData}
+        />
+        <TypePicker
+          filterParams={filterParams}
+          setFilterParams={setFilterParams}
+          setData={setData}
+        />
       </div>
       <Table rows={data} />
       {/* {data && data.length ? <Table rows={data} /> : <SkeletonComponent />} */}

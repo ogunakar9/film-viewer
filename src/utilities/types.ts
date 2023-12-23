@@ -36,4 +36,5 @@ export interface IQueryParams {
   s?: string;
   t?: string;
   type?: string;
+  page?: number;
 }
