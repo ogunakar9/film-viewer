@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,23 +8,19 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TableFooter from "@mui/material/TableFooter";
-import TablePagination from "@mui/material/TablePagination";
-import Skeleton from "../skeleton";
-import "./styles.scss";
-import { ROWS_PER_PAGE } from "../../utilities";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { useEffect, useState } from "react";
 
+import { ROWS_PER_PAGE } from "../../utilities";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
-  selectFilmData,
   selectFilters,
   selectFilmsLength,
   selectFilmsList,
   updatePage,
   getFilmsWithParams,
 } from "../../features/film/filmSlice";
+import "./styles.scss";
 
 const TableComponent = () => {
   const [nextDisabled, setNextDisabled] = useState(true);
@@ -69,6 +66,7 @@ const TableComponent = () => {
     }
   }, [page, totalFilmsLength]);
 
+  //TODO: fix table layout shift on page change width issue
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="film table">
