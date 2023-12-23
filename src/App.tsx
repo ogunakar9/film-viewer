@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
-import logo from "./logo.svg";
+import { useEffect, useState, useCallback } from "react";
 import { Counter } from "./features/counter/Counter";
-import Table from "./Table";
+import { Table, SearchInput } from "./components";
 import "./App.scss";
 import { BASE_URL } from "./utilities/constants";
 
@@ -38,6 +37,7 @@ function App() {
 
   return (
     <div className="App">
+      <SearchInput />
       <Table />
     </div>
   );
