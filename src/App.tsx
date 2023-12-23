@@ -17,6 +17,7 @@ function App() {
     apikey: process.env.REACT_APP_API_KEY,
     t: "",
     s: "Pokemon",
+    y: "",
     type: "",
     page: 1,
   });
@@ -44,9 +45,9 @@ function App() {
           setData={setData}
         />
         <YearPicker
-        // filterParams={filterParams}
-        // setFilterParams={setFilterParams}
-        // setData={setData}
+          filterParams={filterParams}
+          setFilterParams={setFilterParams}
+          setData={setData}
         />
         <TypePicker
           filterParams={filterParams}

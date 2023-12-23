@@ -35,6 +35,7 @@ export interface IQueryParams {
   apikey: string | undefined;
   s?: string;
   t?: string;
+  y?: string;
   type?: string;
   page?: number;
 }
