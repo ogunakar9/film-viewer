@@ -1,30 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "dayjs/locale/en";
 import dayjs from "dayjs";
-import { IQueryParams } from "../../utilities";
-import { fetchFilms } from "../../features/film/filmAPI";
+import { useAppDispatch } from "../../app/hooks";
+import { updateYearSelector } from "../../features/film/filmSlice";
 
-const YearPicker = (props: ISearchInputProps) => {
-  const { filterParams, setFilterParams, setData } = props;
+const YearPicker = () => {
   const [year, setYear] = useState<Dayjs | null>(null);
 
-  // useEffect(() => {
-  //   fetchFilms(filterParams).then((res) => {
-  //     setData(res.Search);
-  //     localStorage.setItem("data", JSON.stringify(res.Search));
-  //   });
-  // }, [filterParams.y]);
+  const dispatch = useAppDispatch();
 
   const handleOnYearChange = (newValue: Dayjs | null) => {
     setYear(newValue);
-
-    setFilterParams((prev: IQueryParams) => {
-      return { ...prev, y: newValue?.year().toString() };
-    });
+    dispatch(updateYearSelector(newValue?.year().toString() || ""));
   };
 
   return (
@@ -43,9 +34,3 @@ const YearPicker = (props: ISearchInputProps) => {
 };
 
 export default YearPicker;
-
-interface ISearchInputProps {
-  setFilterParams: React.Dispatch<React.SetStateAction<IQueryParams>>;
-  filterParams: IQueryParams;
-  setData: React.Dispatch<React.SetStateAction<any[]>>;
-}

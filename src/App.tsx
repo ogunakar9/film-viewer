@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Table, SearchInput, YearPicker, TypePicker } from "./components";
 import { useAppSelector, useAppDispatch } from "./app/hooks";
 import { selectFilters, getFilmsWithParams } from "./features/film/filmSlice";
+import Button from "@mui/material/Button";
 
 import "./App.scss";
 
@@ -26,12 +27,17 @@ function App() {
     }
   }, []);
 
+  const handleSearchClick = () => {
+    dispatch(getFilmsWithParams(filters));
+  };
+
   return (
     <div className="App">
       <div className="filters">
         <SearchInput />
-        {/* <YearPicker />
-        <TypePicker /> */}
+        <YearPicker />
+        {/* <TypePicker /> */}
+        <Button onClick={handleSearchClick}>Apply Filters</Button>
       </div>
       <Table />
       {/* {data && data.length ? <Table rows={data} /> : <SkeletonComponent />} */}
