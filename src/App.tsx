@@ -18,13 +18,20 @@ function App() {
       );
       const data = await response.json();
       setData(data);
+      localStorage.setItem("data", JSON.stringify(data));
     } catch (error) {
       console.log(error);
     }
   }, []);
 
   useEffect(() => {
-    fetchFilms();
+    const filmData = localStorage.getItem("data");
+
+    if (filmData) {
+      setData(JSON.parse(filmData));
+    } else {
+      fetchFilms();
+    }
   }, []);
 
   console.log("data", data);
