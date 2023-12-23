@@ -56,15 +56,12 @@ const TableComponent = () => {
 
   const handlePageIncrease = () => {
     dispatch(updatePage(filters.page + 1));
-    dispatch(getFilmsWithParams(filters));
+    dispatch(getFilmsWithParams({ ...filters, page: filters.page + 1 }));
   };
 
   const handlePageDecrease = () => {
     dispatch(updatePage(page - 1));
-  };
-
-  const handleChangePage = () => {
-    dispatch(updatePage(page - 1));
+    dispatch(getFilmsWithParams({ ...filters, page: filters.page - 1 }));
   };
 
   return (

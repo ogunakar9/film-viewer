@@ -94,10 +94,9 @@ export const selectFilmsList = (state: RootState) =>
 // export const incrementIfOdd =
 //   (amount: number): AppThunk =>
 //   (dispatch, getState) => {
-//     const currentValue = selectCount(getState());
-//     if (currentValue % 2 === 1) {
-//       dispatch(incrementByAmount(amount));
-//     }
+//     const filters = selectFilters(getState());
+
+//     dispatch(getFilmsWithParams(filters));
 //   };
 
 export default filmSlice.reducer;
