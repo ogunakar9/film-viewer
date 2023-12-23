@@ -5,6 +5,7 @@ import {
   SearchInput,
   YearPicker,
   SkeletonComponent,
+  TypePicker,
 } from "./components";
 import "./App.scss";
 import { BASE_URL } from "./utilities/constants";
@@ -35,7 +36,6 @@ function App() {
     const filmData = localStorage.getItem("data");
 
     if (filmData) {
-      console.log(filmData);
       setData(() => JSON.parse(filmData)["Search"]);
     } else {
       fetchFilms();
@@ -47,6 +47,7 @@ function App() {
       <div className="filters">
         <SearchInput />
         <YearPicker />
+        <TypePicker />
       </div>
       <Table rows={data} />
       {/* {data && data.length ? <Table rows={data} /> : <SkeletonComponent />} */}

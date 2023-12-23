@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import "./styles.scss";
 
 const SearchInput = () => {
@@ -28,6 +29,7 @@ const SearchInput = () => {
         value={searchTerm}
         onChange={handleTextChange}
       />
+      <Button>Search By Title</Button>
     </Box>
   );
 };
