@@ -1,11 +1,24 @@
-.table-row {
-  display: flex;
-  gap: 20px;
-  align-items: center;
+.film-table {
+  &__table-row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
 
-  &__img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    &__img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+
+    &__page {
+      font-size: 14px;
+    }
   }
 }
