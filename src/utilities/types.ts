@@ -31,6 +31,11 @@ export interface IFilmDetailData {
   Response: string;
 }
 
+export interface IFilmDataState {
+  Search: IFilmData[];
+  Response: string;
+  totalResults: string;
+}
 export interface IFilmData {
   Title: string;
   Year: string;
@@ -51,6 +56,6 @@ export interface IQueryParams {
 export interface IFilmState {
   query: IQueryParams;
   status: "idle" | "loading" | "failed";
-  filmData: IFilmData[];
   error: string | null;
+  filmData: IFilmDataState;
 }

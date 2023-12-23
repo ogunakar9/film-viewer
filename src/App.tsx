@@ -5,17 +5,12 @@ import { IQueryParams } from "./utilities";
 import "./App.scss";
 import { useAppSelector, useAppDispatch } from "./app/hooks";
 
-import {
-  incrementByAmount,
-  incrementAsync,
-  incrementIfOdd,
-  selectCount,
-} from "./features/film/filmSlice";
+import { selectFilters, getFilmsWithParams } from "./features/film/filmSlice";
 
 function App() {
   const [data, setData] = useState<any[]>([]);
 
-  const count = useAppSelector(selectCount);
+  const filters = useAppSelector(selectFilters);
   const dispatch = useAppDispatch();
 
   const [filterParams, setFilterParams] = useState<IQueryParams>({
@@ -33,11 +28,12 @@ function App() {
     if (filmData) {
       setData(() => JSON.parse(filmData));
     } else {
-      fetchFilms(filterParams).then((res) => {
-        setData(res.Search);
-        console.log(res.Search);
-        localStorage.setItem("data", JSON.stringify(res.Search));
-      });
+      dispatch(getFilmsWithParams(filters));
+      // fetchFilms(filterParams).then((res) => {
+      //   setData(res.Search);
+      //   console.log(res.Search);
+      //   localStorage.setItem("data", JSON.stringify(res.Search));
+      // });
     }
   }, []);
 

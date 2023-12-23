@@ -9,6 +9,10 @@ import { IFilmData } from "../../utilities/types";
 import Skeleton from "../skeleton";
 import "./styles.scss";
 
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+
+import { selectFilmData, selectFilters } from "../../features/film/filmSlice";
+
 const TableComponent = ({ rows }: { rows: IFilmData[] }) => {
   // const TableSection = useMemo(() => {
   //   return rows.length ? (
@@ -30,6 +34,8 @@ const TableComponent = ({ rows }: { rows: IFilmData[] }) => {
   //   );
   // }, [rows]);
 
+  const filmData = useAppSelector(selectFilmData);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -41,7 +47,7 @@ const TableComponent = ({ rows }: { rows: IFilmData[] }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows?.map((row) => (
+          {filmData.Search?.map((row) => (
             <TableRow
               key={row.imdbID}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
