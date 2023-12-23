@@ -1,17 +1,22 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { fetchFilms } from "./features/film/filmAPI";
-import {
-  Table,
-  SearchInput,
-  YearPicker,
-  SkeletonComponent,
-  TypePicker,
-} from "./components";
+import { Table, SearchInput, YearPicker, TypePicker } from "./components";
 import { IQueryParams } from "./utilities";
 import "./App.scss";
+import { useAppSelector, useAppDispatch } from "./app/hooks";
+
+import {
+  incrementByAmount,
+  incrementAsync,
+  incrementIfOdd,
+  selectCount,
+} from "./features/film/filmSlice";
 
 function App() {
   const [data, setData] = useState<any[]>([]);
+
+  const count = useAppSelector(selectCount);
+  const dispatch = useAppDispatch();
 
   const [filterParams, setFilterParams] = useState<IQueryParams>({
     apikey: process.env.REACT_APP_API_KEY,

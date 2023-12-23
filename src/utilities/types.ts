@@ -1,4 +1,4 @@
-export interface IFilmData {
+export interface IFilmDetailData {
   Title: string;
   Year: string;
   Rated: string;
@@ -31,6 +31,14 @@ export interface IFilmData {
   Response: string;
 }
 
+export interface IFilmData {
+  Title: string;
+  Year: string;
+  imdbID: string;
+  Type: string;
+  Poster: string;
+}
+
 export interface IQueryParams {
   apikey: string | undefined;
   s?: string;
@@ -38,4 +46,11 @@ export interface IQueryParams {
   y?: string;
   type?: string;
   page?: number;
+}
+
+export interface IFilmState {
+  query: IQueryParams;
+  status: "idle" | "loading" | "failed";
+  filmData: IFilmData[];
+  error: string | null;
 }

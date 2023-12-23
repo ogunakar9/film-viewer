@@ -1,15 +1,20 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
-import { fetchCount } from "./filmAPI";
+import { fetchFilms } from "./filmAPI";
+import { IQueryParams, IFilmState, IFilmData } from "../../utilities";
 
-export interface CounterState {
-  value: number;
-  status: "idle" | "loading" | "failed";
-}
-
-const initialState: CounterState = {
-  value: 0,
+const initialState: IFilmState = {
+  query: {
+    apikey: process.env.REACT_APP_API_KEY,
+    t: "",
+    s: "Pokemon",
+    y: "",
+    type: "",
+    page: 1,
+  },
   status: "idle",
+  filmData: [] as IFilmData[],
+  error: null,
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -18,32 +23,22 @@ const initialState: CounterState = {
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
 export const incrementAsync = createAsyncThunk(
-  "counter/fetchCount",
-  async (amount: number) => {
-    const response = await fetchCount(amount);
+  "films/fetchFilms",
+  async (params: IQueryParams) => {
+    const response = await fetchFilms(params);
     // The value we return becomes the `fulfilled` action payload
-    return response.data;
+    return response;
   }
 );
 
-export const counterSlice = createSlice({
+export const filmSlice = createSlice({
   name: "counter",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
     // Use the PayloadAction type to declare the contents of `action.payload`
     incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+      // state.value += action.payload;
     },
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -63,7 +58,7 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { incrementByAmount } = filmSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -81,4 +76,4 @@ export const incrementIfOdd =
     }
   };
 
-export default counterSlice.reducer;
+export default filmSlice.reducer;

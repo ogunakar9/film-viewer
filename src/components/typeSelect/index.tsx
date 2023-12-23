@@ -16,12 +16,12 @@ const SelectType = (props: ISearchInputProps) => {
     });
   };
 
-  useEffect(() => {
-    fetchFilms(filterParams).then((res) => {
-      setData(res.Search);
-      localStorage.setItem("data", JSON.stringify(res.Search));
-    });
-  }, [filterParams.type]);
+  // useEffect(() => {
+  //   fetchFilms(filterParams).then((res) => {
+  //     setData(res.Search);
+  //     localStorage.setItem("data", JSON.stringify(res.Search));
+  //   });
+  // }, [filterParams.type]);
 
   return (
     <div>

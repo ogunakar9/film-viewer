@@ -12,12 +12,12 @@ const YearPicker = (props: ISearchInputProps) => {
   const { filterParams, setFilterParams, setData } = props;
   const [year, setYear] = useState<Dayjs | null>(null);
 
-  useEffect(() => {
-    fetchFilms(filterParams).then((res) => {
-      setData(res.Search);
-      localStorage.setItem("data", JSON.stringify(res.Search));
-    });
-  }, [filterParams.y]);
+  // useEffect(() => {
+  //   fetchFilms(filterParams).then((res) => {
+  //     setData(res.Search);
+  //     localStorage.setItem("data", JSON.stringify(res.Search));
+  //   });
+  // }, [filterParams.y]);
 
   const handleOnYearChange = (newValue: Dayjs | null) => {
     setYear(newValue);
