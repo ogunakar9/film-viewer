@@ -33,16 +33,14 @@ function App() {
 
   useEffect(() => {
     const filmData = localStorage.getItem("data");
-    fetchFilms();
 
-    // if (filmData) {
-    //   setData(() => [JSON.parse(filmData)]);
-    // } else {
-    //   fetchFilms();
-    // }
+    if (filmData) {
+      console.log(filmData);
+      setData(() => JSON.parse(filmData)["Search"]);
+    } else {
+      fetchFilms();
+    }
   }, []);
-
-  console.log("data", data);
 
   return (
     <div className="App">
