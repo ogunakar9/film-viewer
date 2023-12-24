@@ -70,8 +70,6 @@ const TableComponent = () => {
     }
   }, [page, totalFilmsLength, status]);
 
-  //TODO: add enhanced toolbar with active filters here
-
   const NoDataComponent = () => {
     if (filmData?.Error) {
       return (
@@ -98,6 +96,7 @@ const TableComponent = () => {
     );
   };
 
+  //TODO: add enhanced toolbar with active filters here
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="film table">
