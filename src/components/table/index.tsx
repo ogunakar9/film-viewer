@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import TableFooter from "@mui/material/TableFooter";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { useNavigate } from "react-router-dom";
 
 import { ROWS_PER_PAGE } from "../../utilities";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
@@ -25,6 +26,8 @@ import {
 import "./styles.scss";
 
 const TableComponent = () => {
+  const navigate = useNavigate();
+
   const [nextDisabled, setNextDisabled] = useState(true);
   const [prevDisabled, setPrevDisabled] = useState(true);
 
@@ -71,6 +74,7 @@ const TableComponent = () => {
 
   const handleRowClick = (id: string) => {
     dispatch(getFilmDetail({ apikey: process.env.REACT_APP_API_KEY, i: id }));
+    navigate(`${id}`);
     //TODO: reroute to film details page
   };
 
