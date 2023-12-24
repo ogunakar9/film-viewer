@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-import "./styles.scss";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   selectFilters,
@@ -32,7 +31,7 @@ const SearchInput = () => {
     <Box
       component="form"
       sx={{
-        "& > :not(style)": { m: 1, width: "25ch" },
+        "& > :not(style)": { m: 1, width: "25ch", ml: 0 },
       }}
       noValidate
       autoComplete="off"

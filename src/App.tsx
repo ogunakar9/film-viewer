@@ -15,12 +15,7 @@ function App() {
     dispatch(getFilmsWithParams(filters));
   }, []);
 
-  return (
-    <div className="App">
-      <Films />
-      {/* {data && data.length ? <Table rows={data} /> : <SkeletonComponent />} */}
-    </div>
-  );
+  return <Films />;
 }
 
 export default App;

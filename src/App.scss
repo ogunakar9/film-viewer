@@ -2,6 +2,12 @@
 @import "./styles/variables.scss";
 @import "./styles/reset.scss";
 
+.App {
+  @include displayFlex(nowrap, start, start, column);
+  height: 100vh;
+  padding: 3rem 2rem;
+}
+
 .filters {
   display: flex;
   align-items: center;
@@ -11,4 +17,14 @@
 
 .MuiDateCalendar-root {
   height: auto !important;
+}
+
+.MuiTableRow-root {
+  vertical-align: baseline !important;
+  height: 50px !important;
+  max-height: min-content !important;
+}
+
+.MuiTableCell-root {
+  vertical-align: middle !important;
 }

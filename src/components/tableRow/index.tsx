@@ -27,11 +27,14 @@ const TableRowComponent = ({ row }: { row: IFilmData }) => {
       <TableCell
         component="th"
         scope="row"
-        className="film-table__cell__rating"
+        className="film-table__cell__rating film-table__cell"
       >
         {row.imdbID}
       </TableCell>
-      <TableCell align="right" className="film-table__cell__title">
+      <TableCell
+        align="right"
+        className="film-table__cell__title film-table__cell"
+      >
         <div className="film-table__table-row">
           <img
             src={row.Poster}
@@ -41,7 +44,9 @@ const TableRowComponent = ({ row }: { row: IFilmData }) => {
           {row.Title}
         </div>
       </TableCell>
-      <TableCell className="film-table__cell__year">{row.Year}</TableCell>
+      <TableCell className="film-table__cell__year film-table__cell">
+        {row.Year}
+      </TableCell>
     </TableRow>
   );
 };

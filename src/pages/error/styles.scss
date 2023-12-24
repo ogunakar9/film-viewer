@@ -3,4 +3,6 @@
 
 .error-page {
   @include displayFlex(nowrap, center, center, column);
+  width: 100vw;
+  height: 100vh;
 }
