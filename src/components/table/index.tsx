@@ -115,6 +115,22 @@ const TableComponent = () => {
               <TableRowComponent row={row} key={row.imdbID} />
             ))
           )}
+          <TableRow
+            style={{
+              height: (ROWS_PER_PAGE - filmList?.length) * 82,
+            }}
+          >
+            {Array.from({ length: ROWS_PER_PAGE - filmList?.length }).map(
+              (_, index) => (
+                <TableCell
+                  key={index}
+                  sx={{
+                    border: 0,
+                  }}
+                />
+              )
+            )}
+          </TableRow>
         </TableBody>
         <TableFooter>
           <TableRow>

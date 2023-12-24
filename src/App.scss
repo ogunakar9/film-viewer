@@ -21,8 +21,8 @@
 
 .MuiTableRow-root {
   vertical-align: baseline !important;
-  height: 50px !important;
   max-height: min-content !important;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
 }
 
 .MuiTableCell-root {
