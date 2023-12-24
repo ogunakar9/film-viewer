@@ -74,7 +74,7 @@ const TableComponent = () => {
 
   const handleRowClick = (id: string) => {
     dispatch(getFilmDetail({ apikey: process.env.REACT_APP_API_KEY, i: id }));
-    navigate(`${id}`);
+    navigate(`films/${id}`);
     //TODO: reroute to film details page
   };
 

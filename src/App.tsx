@@ -12,19 +12,8 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const filmData = localStorage.getItem("data");
-
-    if (filmData) {
-      // setData(() => JSON.parse(filmData));
-    } else {
-      // dispatch(getFilmsWithParams(filters));
-      //
-      // fetchFilms(filterParams).then((res) => {
-      //   setData(res.Search);
-      //   console.log(res.Search);
-      //   localStorage.setItem("data", JSON.stringify(res.Search));
-      // });
-    }
+    console.log("filters", filters);
+    // dispatch(getFilmsWithParams(filters));
   }, []);
 
   return (
@@ -36,11 +25,3 @@ function App() {
 }
 
 export default App;
-
-// if (responseData?.Search) {
-//   setData(responseData.Search);
-//   localStorage.setItem("data", JSON.stringify(responseData.Search));
-// } else {
-//   setData([responseData]);
-//   localStorage.setItem("data", JSON.stringify([responseData.Search]));
-// }

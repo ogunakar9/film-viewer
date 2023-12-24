@@ -9,18 +9,24 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.scss";
 import Details from "./pages/details";
 import ErrorPage from "./pages/error";
+import NotFoundPage from "./pages/404";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 const router = createBrowserRouter([
   {
+    path: "*",
+    element: <NotFoundPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/:id",
+    path: "/films/:id",
     element: <Details />,
     errorElement: <ErrorPage />,
   },
