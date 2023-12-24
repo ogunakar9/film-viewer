@@ -1,0 +1,6 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.error-page {
+  @include displayFlex(nowrap, center, center, column);
+}
