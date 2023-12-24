@@ -95,8 +95,10 @@ const Details = () => {
     <div className="details__error">
       <Chip label={selectedFilm.Error} color="error" />
     </div>
-  ) : (
+  ) : selectedFilm.Response === "True" ? (
     <DetailSection />
+  ) : (
+    <></>
   );
 };
 

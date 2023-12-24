@@ -12,8 +12,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log("filters", filters);
-    // dispatch(getFilmsWithParams(filters));
+    dispatch(getFilmsWithParams(filters));
   }, []);
 
   return (

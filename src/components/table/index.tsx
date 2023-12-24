@@ -20,7 +20,6 @@ import {
   selectFilmsList,
   updatePage,
   getFilmsWithParams,
-  selectSelectedFilm,
   selectFilmData,
 } from "../../features/film/filmSlice";
 import { TableRowComponent } from "../../components";
@@ -34,11 +33,8 @@ const TableComponent = () => {
   const filmList = useAppSelector(selectFilmsList);
   const filmData = useAppSelector(selectFilmData);
   const totalFilmsLength = useAppSelector(selectFilmsLength);
-  const selectedFilm = useAppSelector(selectSelectedFilm);
   const { page } = filters;
   const dispatch = useAppDispatch();
-
-  console.log("selectedFilm", selectedFilm);
 
   //TODO: refactor getfilmswithparams to be called from redux for page update
   const handlePageIncrease = () => {
