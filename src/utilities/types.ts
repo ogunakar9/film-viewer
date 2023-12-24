@@ -29,6 +29,7 @@ export interface IFilmDetailData {
   Production: string;
   Website: string;
   Response: string;
+  Error?: string;
 }
 
 export interface IFilmDataState {
