@@ -2,14 +2,15 @@ import Button from "@mui/material/Button";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { Table, SearchInput, YearPicker, TypePicker } from "../../components";
-import { selectFilters, getFilmsWithParams } from "./filmSlice";
+import { selectFilters, getFilmsWithParams, updatePage } from "./filmSlice";
 
 const Films = () => {
   const filters = useAppSelector(selectFilters);
   const dispatch = useAppDispatch();
 
   const handleFormSubmit = () => {
-    dispatch(getFilmsWithParams(filters));
+    dispatch(updatePage(1));
+    dispatch(getFilmsWithParams({ ...filters, page: 1 }));
   };
 
   return (

@@ -139,7 +139,7 @@ const TableComponent = () => {
           )}
         </TableBody>
         <TableFooter>
-          <TableRow>
+          <TableRow style={{ height: "73px" }}>
             <TableCell align="right" className="table__pagination"></TableCell>
             <TableCell align="right" className="table__pagination"></TableCell>
             <TableCell align="right" className="film-table__pagination">

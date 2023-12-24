@@ -8,6 +8,7 @@ import {
   selectFilters,
   updateSearchInput,
   getFilmsWithParams,
+  updatePage,
 } from "../../features/film/filmSlice";
 
 const SearchInput = () => {
@@ -23,7 +24,8 @@ const SearchInput = () => {
   const handleEnterKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      dispatch(getFilmsWithParams(filters));
+      dispatch(updatePage(1));
+      dispatch(getFilmsWithParams({ ...filters, page: 1 }));
     }
   };
 
