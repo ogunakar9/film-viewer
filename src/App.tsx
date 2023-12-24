@@ -13,6 +13,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getFilmsWithParams(filters));
+    // eslint-disable-next-line
   }, []);
 
   return <Films />;
