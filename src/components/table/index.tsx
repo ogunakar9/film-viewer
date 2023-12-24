@@ -10,9 +10,9 @@ import Paper from "@mui/material/Paper";
 import TableFooter from "@mui/material/TableFooter";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { useNavigate } from "react-router-dom";
+import Chip from "@mui/material/Chip";
 
-import { IFilmData, ROWS_PER_PAGE } from "../../utilities";
+import { ROWS_PER_PAGE } from "../../utilities";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   selectFilters,
@@ -20,7 +20,6 @@ import {
   selectFilmsList,
   updatePage,
   getFilmsWithParams,
-  getFilmDetail,
   selectSelectedFilm,
   selectFilmData,
 } from "../../features/film/filmSlice";
@@ -28,8 +27,6 @@ import { TableRowComponent } from "../../components";
 import "./styles.scss";
 
 const TableComponent = () => {
-  const navigate = useNavigate();
-
   const [nextDisabled, setNextDisabled] = useState(true);
   const [prevDisabled, setPrevDisabled] = useState(true);
 
@@ -77,20 +74,26 @@ const TableComponent = () => {
 
   //TODO: add enhanced toolbar with active filters here
 
-  console.log("filmData", filmData);
-
   const NoDataComponent = () => {
     if (filmData?.Error) {
       return (
-        <TableRow>
-          <TableCell>{filmData.Error}</TableCell>
+        <TableRow className="nodata-cmp">
+          <TableCell className="nodata-cmp__cell" align="center">
+            <Chip
+              label={filmData.Error}
+              color="error"
+              className="nodata-cmp__cell__chip"
+            />
+          </TableCell>
         </TableRow>
       );
     }
 
     return (
-      <TableRow>
-        <TableCell>no data</TableCell>
+      <TableRow className="nodata-cmp">
+        <TableCell className="nodata-cmp__cell" align="center">
+          <Chip label="There are no results to display!" color="error" />
+        </TableCell>
       </TableRow>
     );
   };
