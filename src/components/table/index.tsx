@@ -21,6 +21,7 @@ import {
   updatePage,
   getFilmsWithParams,
   selectFilmData,
+  selectStatus,
 } from "../../features/film/filmSlice";
 import { TableRowComponent } from "../../components";
 import "./styles.scss";
@@ -29,6 +30,7 @@ const TableComponent = () => {
   const [nextDisabled, setNextDisabled] = useState(true);
   const [prevDisabled, setPrevDisabled] = useState(true);
 
+  const status = useAppSelector(selectStatus);
   const filters = useAppSelector(selectFilters);
   const filmList = useAppSelector(selectFilmsList);
   const filmData = useAppSelector(selectFilmData);
@@ -39,16 +41,16 @@ const TableComponent = () => {
   //TODO: refactor getfilmswithparams to be called from redux for page update
   const handlePageIncrease = () => {
     setNextDisabled(true);
+    setPrevDisabled(true);
     dispatch(updatePage(filters.page + 1));
     dispatch(getFilmsWithParams({ ...filters, page: filters.page + 1 }));
-    setNextDisabled(false);
   };
 
   const handlePageDecrease = () => {
+    setNextDisabled(true);
     setPrevDisabled(true);
     dispatch(updatePage(page - 1));
     dispatch(getFilmsWithParams({ ...filters, page: filters.page - 1 }));
-    setPrevDisabled(false);
   };
 
   useEffect(() => {
@@ -57,16 +59,16 @@ const TableComponent = () => {
 
     if ((page + 1) * ROWS_PER_PAGE >= totalFilmsLengthInt) {
       setNextDisabled(true);
-    } else {
+    } else if (status === "idle") {
       setNextDisabled(false);
     }
 
-    if (page > 1) {
+    if (page > 1 && status === "idle") {
       setPrevDisabled(false);
     } else {
       setPrevDisabled(true);
     }
-  }, [page, totalFilmsLength]);
+  }, [page, totalFilmsLength, status]);
 
   //TODO: add enhanced toolbar with active filters here
 
@@ -85,12 +87,14 @@ const TableComponent = () => {
       );
     }
 
-    return (
+    return status !== "loading" ? (
       <TableRow className="nodata-cmp">
         <TableCell className="nodata-cmp__cell" align="center">
           <Chip label="There are no results to display!" color="error" />
         </TableCell>
       </TableRow>
+    ) : (
+      <></>
     );
   };
 

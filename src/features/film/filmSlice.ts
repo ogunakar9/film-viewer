@@ -120,12 +120,12 @@ export const selectSelectedFilm = (state: RootState) =>
 //TODO: refactor this to make page fetch with filter change in same function
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
-// export const incrementIfOdd =
-//   (amount: number): AppThunk =>
-//   (dispatch, getState) => {
-//     const filters = selectFilters(getState());
+export const getNewPage =
+  (page: number): AppThunk =>
+  (dispatch, getState) => {
+    const filters = selectFilters(getState());
 
-//     dispatch(getFilmsWithParams(filters));
-//   };
+    dispatch(getFilmsWithParams(filters));
+  };
 
 export default filmSlice.reducer;
