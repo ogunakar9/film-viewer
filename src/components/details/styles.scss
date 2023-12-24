@@ -1,0 +1,9 @@
+@import "../../styles/variables.scss";
+@import "../../styles//mixins.scss";
+
+.details {
+  width: 100vw;
+  height: 100vh;
+  padding: $spacing-50;
+  @include displayFlex(column, center, center);
+}
