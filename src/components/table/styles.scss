@@ -1,4 +1,17 @@
 .film-table {
+  &__cell {
+    &__rating {
+      width: 20%;
+    }
+
+    &__title {
+      width: 60%;
+    }
+    &__year {
+      width: 20%;
+    }
+  }
+
   &__table-row {
     display: flex;
     gap: 20px;

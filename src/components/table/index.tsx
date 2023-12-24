@@ -75,7 +75,6 @@ const TableComponent = () => {
   const handleRowClick = (id: string) => {
     dispatch(getFilmDetail({ apikey: process.env.REACT_APP_API_KEY, i: id }));
     navigate(`films/${id}`);
-    //TODO: reroute to film details page
   };
 
   //TODO: fix table layout shift on page change width issue
@@ -101,10 +100,14 @@ const TableComponent = () => {
               }}
               onClick={() => handleRowClick(row.imdbID)}
             >
-              <TableCell component="th" scope="row">
+              <TableCell
+                component="th"
+                scope="row"
+                className="film-table__cell__rating"
+              >
                 {row.imdbID}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="right" className="film-table__cell__title">
                 <div className="film-table__table-row">
                   <img
                     src={row.Poster}
@@ -114,15 +117,11 @@ const TableComponent = () => {
                   {row.Title}
                 </div>
               </TableCell>
-
-              <TableCell>{row.Year}</TableCell>
+              <TableCell className="film-table__cell__year">
+                {row.Year}
+              </TableCell>
             </TableRow>
           ))}
-          {/* {emptyRows > 0 && (
-            <TableRow style={{ height: 92 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )} */}
         </TableBody>
         <TableFooter>
           <TableRow>
