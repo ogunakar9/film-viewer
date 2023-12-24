@@ -35,6 +35,7 @@ export interface IFilmDataState {
   Search: IFilmData[];
   Response: string;
   totalResults: string;
+  Error?: string;
 }
 export interface IFilmData {
   Title: string;

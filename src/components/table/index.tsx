@@ -12,7 +12,7 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { useNavigate } from "react-router-dom";
 
-import { ROWS_PER_PAGE } from "../../utilities";
+import { IFilmData, ROWS_PER_PAGE } from "../../utilities";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   selectFilters,
@@ -22,7 +22,9 @@ import {
   getFilmsWithParams,
   getFilmDetail,
   selectSelectedFilm,
+  selectFilmData,
 } from "../../features/film/filmSlice";
+import { TableRowComponent } from "../../components";
 import "./styles.scss";
 
 const TableComponent = () => {
@@ -33,6 +35,7 @@ const TableComponent = () => {
 
   const filters = useAppSelector(selectFilters);
   const filmList = useAppSelector(selectFilmsList);
+  const filmData = useAppSelector(selectFilmData);
   const totalFilmsLength = useAppSelector(selectFilmsLength);
   const selectedFilm = useAppSelector(selectSelectedFilm);
   const { page } = filters;
@@ -72,13 +75,26 @@ const TableComponent = () => {
     }
   }, [page, totalFilmsLength]);
 
-  const handleRowClick = (id: string) => {
-    dispatch(getFilmDetail({ apikey: process.env.REACT_APP_API_KEY, i: id }));
-    navigate(`films/${id}`);
+  //TODO: add enhanced toolbar with active filters here
+
+  console.log("filmData", filmData);
+
+  const NoDataComponent = () => {
+    if (filmData?.Error) {
+      return (
+        <TableRow>
+          <TableCell>{filmData.Error}</TableCell>
+        </TableRow>
+      );
+    }
+
+    return (
+      <TableRow>
+        <TableCell>no data</TableCell>
+      </TableRow>
+    );
   };
 
-  //TODO: fix table layout shift on page change width issue
-  //TODO: add enhanced toolbar here
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="film table">
@@ -90,38 +106,13 @@ const TableComponent = () => {
           </TableRow>
         </TableHead>
         <TableBody style={{ height: "800px" }}>
-          {filmList?.map((row) => (
-            <TableRow
-              hover
-              key={row.imdbID}
-              sx={{
-                "&:last-child td, &:last-child th": { border: 0 },
-                cursor: "pointer",
-              }}
-              onClick={() => handleRowClick(row.imdbID)}
-            >
-              <TableCell
-                component="th"
-                scope="row"
-                className="film-table__cell__rating"
-              >
-                {row.imdbID}
-              </TableCell>
-              <TableCell align="right" className="film-table__cell__title">
-                <div className="film-table__table-row">
-                  <img
-                    src={row.Poster}
-                    alt={row.Title}
-                    className="film-table__table-row__img"
-                  />
-                  {row.Title}
-                </div>
-              </TableCell>
-              <TableCell className="film-table__cell__year">
-                {row.Year}
-              </TableCell>
-            </TableRow>
-          ))}
+          {!filmList?.length ? (
+            <NoDataComponent />
+          ) : (
+            filmList.map((row) => (
+              <TableRowComponent row={row} key={row.imdbID} />
+            ))
+          )}
         </TableBody>
         <TableFooter>
           <TableRow>
