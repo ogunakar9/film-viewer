@@ -3,7 +3,7 @@
 @import "./styles/reset.scss";
 
 .App {
-  @include displayFlex(nowrap, start, start, column);
+  @include displayFlex(nowrap, flex-start, flex-start, column);
   height: 100vh;
   padding: 3rem 2rem;
 }

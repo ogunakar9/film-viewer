@@ -110,12 +110,14 @@ const TableComponent = () => {
         <TableBody style={{ height: "800px" }}>
           {!filmList?.length ? (
             <NoDataComponent />
-          ) : (
+          ) : status === "idle" ? (
             filmList.map((row) => (
               <TableRowComponent row={row} key={row.imdbID} />
             ))
+          ) : (
+            <></>
           )}
-          {filmList?.length && status === "idle" && filmList?.length !== 10 ? (
+          {filmList?.length && status === "idle" && filmList?.length < 10 ? (
             <TableRow
               style={{
                 height: (ROWS_PER_PAGE - filmList?.length) * 82,
@@ -141,13 +143,25 @@ const TableComponent = () => {
             <TableCell align="right" className="table__pagination"></TableCell>
             <TableCell align="right" className="table__pagination"></TableCell>
             <TableCell align="right" className="film-table__pagination">
-              <IconButton onClick={handlePageDecrease} disabled={prevDisabled}>
-                <KeyboardArrowLeft />
-              </IconButton>
-              <span className="film-table__pagination__page">{page}</span>
-              <IconButton onClick={handlePageIncrease} disabled={nextDisabled}>
-                <KeyboardArrowRight />
-              </IconButton>
+              {status === "idle" && filmList?.length ? (
+                <>
+                  <IconButton
+                    onClick={handlePageDecrease}
+                    disabled={prevDisabled}
+                  >
+                    <KeyboardArrowLeft />
+                  </IconButton>
+                  <span className="film-table__pagination__page">{page}</span>
+                  <IconButton
+                    onClick={handlePageIncrease}
+                    disabled={nextDisabled}
+                  >
+                    <KeyboardArrowRight />
+                  </IconButton>
+                </>
+              ) : (
+                <></>
+              )}
             </TableCell>
           </TableRow>
         </TableFooter>
