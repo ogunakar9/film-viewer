@@ -8,6 +8,12 @@
   @include displayFlex(nowrap, start, start);
   gap: $spacing-50;
 
+  @media screen and (max-width: $medium) {
+    @include displayFlex(nowrap, start, center, column);
+    padding: $spacing-8;
+    width: calc(100vw - 150px);
+  }
+
   &__img {
     @include displayFlex(nowrap, center, start);
     flex-basis: 20%;
@@ -26,6 +32,11 @@
     height: 100%;
     gap: $spacing-50;
     flex-basis: 60%;
+
+    @media screen and (max-width: $medium) {
+      max-width: calc(100vw - 200px);
+      gap: $spacing-16;
+    }
 
     &__single {
       @include displayFlex(nowrap, start, start, column);
